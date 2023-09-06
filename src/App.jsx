@@ -6,6 +6,7 @@ import ArticlesList from './components/ArticlesList'
 import ArticleItem from './components/ArticleItem'
 
 
+
 function App() {
 
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path='/' element={<Home/>} />
         <Route path='/article-list' element={<ArticlesList/>}/>
         <Route path='/article-details/:articleId' element={<ArticleItem/>}  />
+        <Route path='/article-details/:articleId/comments-list' element={<ArticleItem/>} />
       </Routes>
 
     </>

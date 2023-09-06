@@ -3,7 +3,7 @@ import { getArticles } from "../ApiComponent/ArticleApiService";
 import ArticleCard from "./ArticleCard";
 import NavigationBar from "./NavigationBar";
 import { Link } from "react-router-dom";
-import ArticleItem from "./ArticleItem";
+import Header from "./Header";
 
 
 export default function ArticlesList () {
@@ -20,6 +20,14 @@ export default function ArticlesList () {
             });
     }, [])
 
+    if (!articles) {
+        return (
+            <div>
+                <h3>Loading...</h3>
+            </div>
+        );
+    }
+
     const handleLoadMore = () => {
         const additionalArticlesToShow = 3
         setMaxArticlesToShow(maxArticlesToShow + additionalArticlesToShow)
@@ -31,10 +39,8 @@ export default function ArticlesList () {
 
     return(
         <div>
-        <h1>Article List</h1>
-        <NavigationBar/>
+        <Header/>
         <div>
-
             <ul>
                 {limitedArticles.map((article) => {
                     return (
