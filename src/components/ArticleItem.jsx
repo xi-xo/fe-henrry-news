@@ -1,26 +1,33 @@
-import { useParams, Link } from "react-router-dom";
-import NavigationBar from "./NavigationBar";
+import { useParams } from "react-router-dom";
 import { getArticlesById } from "../ApiComponent/ArticleApiService";
 import { useEffect, useState } from "react";
-import CommentsList from "../CommentsList";
-import Header from "./Header";
+import CommentsList from "./CommentsList";
 
 export default function ArticleItem () {
     const { articleId } = useParams(); 
-    const [articles, setArticles] = useState({})
-    const article = articles.article
+    const [article, setArticle] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         getArticlesById(articleId)
         .then((fetchedArticle) => {
-            setArticles(fetchedArticle)
+            setArticle(fetchedArticle.article)
+            setIsLoading(false)
         })
     }, [articleId])
 
-    if (!article) {
+    if(isLoading) {
         return (
             <div>
-                <h3>Loading...</h3>
+                <h3>Loanding...</h3>
+            </div>
+        );
+    }
+
+    if (!article || article.length === 0) {
+        return (
+            <div>
+                <h3>Article not found</h3>
             </div>
         );
     }
@@ -28,10 +35,9 @@ export default function ArticleItem () {
         <>
 
         <div>
-            <Header/>
             <h2>{article.title}</h2>
             <p>posted on: {article.created_at}</p>
-            {article.article_img_url && <img className="articleItem-img" src={article.article_img_url} alt={article.title} />}
+            {article.article_img_url && <img className="articleItem__article-img" src={article.article_img_url} alt={article.title} />}
             <p>{article.body}</p>
             <p>author: {article.author}</p>
         </div>
