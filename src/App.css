@@ -1,32 +1,118 @@
+/* Small Screen */
 @media (max-width: 600px) {
+
+  .header__header-container {
+    background-color: blanchedalmond;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }  
+  .appTitle {
+    background-color: rgb(58, 58, 58);
+  }
+
+  /* Article Image Styles */
+.article-item img {
+  max-width: 50%;
+  height: auto;
+  }
+
+.articleItem__article-img {
+  max-width: 100%;
+  height: auto;
+  }
 }
-/* Medium screens */
+
+/* Medium Screen */
 @media (min-width: 601px) and (max-width: 1024px) {
+  .header__header-container {
+    background-color: rgb(154, 148, 215);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .appTitle {
+    background-color: aqua;
+    display: flex;
+  }
 }
-/* Large screens */
+
+/* Large Screen*/
 @media (min-width: 1025px) {
+  .header__header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(236, 229, 230);
+    padding: 1rem 2rem;
+  }
+
+  
+
+  .appTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(69, 69, 69);
+  }
+
+  a {
+    font-weight: 500;
+    color: #ff6e64;
+    text-decoration: inherit;
+  }
+
+  a:hover {
+    color: #53baf1;
+  }
+
+}
+
+
+
+.article-item {
+  list-style: none;
 }
 
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
-.navigationBar-container {
-  display: flex;
-  justify-content: center;
+.header-component-title h1 {
+  color: white;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-.navigation-list {
-  display: inline-block;
-  padding: 0;
+.header-navigationBar ul {
   list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content:right;
 }
 
-.navigation-list li {
-  
-  display: inline-block; 
-  margin-right: 25px; 
+
+.header-navigationBar a {
+  color: rgb(43, 2, 61);
+  text-decoration: none;
+  margin-right: 1rem;
 }

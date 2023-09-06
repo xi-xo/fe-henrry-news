@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { getArticles } from "../ApiComponent/ArticleApiService";
 import ArticleCard from "./ArticleCard";
-import NavigationBar from "./NavigationBar";
 import { Link } from "react-router-dom";
-import ArticleItem from "./ArticleItem";
 
 
 export default function ArticlesList () {
@@ -20,6 +18,14 @@ export default function ArticlesList () {
             });
     }, [])
 
+    if (!articles) {
+        return (
+            <div>
+                <h3>Loading...</h3>
+            </div>
+        );
+    }
+
     const handleLoadMore = () => {
         const additionalArticlesToShow = 3
         setMaxArticlesToShow(maxArticlesToShow + additionalArticlesToShow)
@@ -31,21 +37,18 @@ export default function ArticlesList () {
 
     return(
         <div>
-        <h1>Article List</h1>
-        <NavigationBar/>
         <div>
-
             <ul>
                 {limitedArticles.map((article) => {
                     return (
                         <li className="article-item" key={article.article_id}>
                             <Link to={`/article-details/${article.article_id}`}>
                                 <ArticleCard article={article}/>
-                                </Link>
+                            </Link>
                         </li>
                     )
-            })}
-        </ul>
+                })}
+            </ul>
         </div>
         {maxArticlesToShow < articles.length && (<button onClick={handleLoadMore}>Load More</button>)}
         </div>
