@@ -31,3 +31,17 @@ export const getCommentsByArticleId = (articleId) => {
         return data
     })
 }
+
+export const patchVote = (articleId, voteType) => {
+    const requestData = {
+        vote_type: voteType
+    };
+
+    return ncNewsApi.patch( `/articles/${articleId}`, { newVote: 1 })
+    .then((data) => {
+        console.log(data);
+        return data
+    }).catch((error) => {
+        throw error;
+    });
+}
