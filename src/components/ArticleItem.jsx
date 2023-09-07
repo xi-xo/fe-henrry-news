@@ -2,11 +2,14 @@ import { useParams } from "react-router-dom";
 import { getArticlesById } from "../ApiComponent/ArticleApiService";
 import { useEffect, useState } from "react";
 import CommentsList from "./CommentsList";
+import VotePatch from "./VotePatch";
+
 
 export default function ArticleItem () {
     const { articleId } = useParams(); 
     const [article, setArticle] = useState({})
     const [isLoading, setIsLoading] = useState(true)
+
 
     useEffect(() => {
         getArticlesById(articleId)
@@ -24,7 +27,7 @@ export default function ArticleItem () {
         );
     }
 
-    if (!article || article.length === 0) {
+    if (!article) {
         return (
             <div>
                 <h3>Article not found</h3>
@@ -40,6 +43,7 @@ export default function ArticleItem () {
             {article.article_img_url && <img className="articleItem__article-img" src={article.article_img_url} alt={article.title} />}
             <p>{article.body}</p>
             <p>author: {article.author}</p>
+            <VotePatch article={article}/>
         </div>
 
         <div>

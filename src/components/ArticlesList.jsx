@@ -4,24 +4,33 @@ import ArticleCard from "./ArticleCard";
 import { Link } from "react-router-dom";
 
 
-export default function ArticlesList () {
+export default function ArticlesList() {
     const articlesToShowAtStart = 3
     const [maxArticlesToShow, setMaxArticlesToShow] = useState(articlesToShowAtStart)
     const [articles, setArticles] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         getArticles().then((articlesApi) => {
             const articlesFromAPI = articlesApi.articles;
             setArticles(articlesFromAPI);
-        }).catch((error) => {
-            console.error("Error fetching articles:", error);
-            });
+        }).then(() => {
+            setLoading(false)
+        })
     }, [])
 
-    if (!articles) {
+    if (loading) {
         return (
             <div>
                 <h3>Loading...</h3>
+            </div>
+        );
+    }
+
+    if (!articles || articles.length === 0) {
+        return (
+            <div>
+                <h3>No articles available.</h3>
             </div>
         );
     }
@@ -35,22 +44,22 @@ export default function ArticlesList () {
     const limitedArticles = articles.slice(0, maxArticlesToShow)
 
 
-    return(
+    return (
         <div>
-        <div>
-            <ul>
-                {limitedArticles.map((article) => {
-                    return (
-                        <li className="article-item" key={article.article_id}>
-                            <Link to={`/article-details/${article.article_id}`}>
-                                <ArticleCard article={article}/>
-                            </Link>
-                        </li>
-                    )
-                })}
-            </ul>
-        </div>
-        {maxArticlesToShow < articles.length && (<button onClick={handleLoadMore}>Load More</button>)}
+            <div>
+                <ul>
+                    {limitedArticles.map((article) => {
+                        return (
+                            <li className="article-item" key={article.article_id}>
+                                <Link to={`/article-details/${article.article_id}`}>
+                                    <ArticleCard article={article} />
+                                </Link>
+                            </li>
+                        )
+                    })}
+                </ul>
+            </div>
+            {maxArticlesToShow < articles.length && (<button onClick={handleLoadMore}>Load More</button>)}
         </div>
     )
 
