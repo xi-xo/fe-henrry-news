@@ -1,20 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { patchVote } from "../ApiComponent/ArticleApiService";
 
 export default function VotePatch({ article }) {
-    const [votes, setVotes] = useState(article.votes);
+    const [votes, setVotes] = useState();
     const [isVoting, setIsVoting] = useState(false);
     const [voteError, setVoteError] = useState(null);
 
+
+    useEffect(() => {
+        setVotes(article.votes);
+    }, [article.votes])
     const updateVote = () => {
-        const updatedArticle = { ...article };
-        updatedArticle.votes++;
-        setVotes(updatedArticle.votes);
-        patchVote(updatedArticle.article_id)
+        const currVotes = article.votes
+        article.votes++
+        setVotes(article.votes);
+        patchVote(article.article_id)
         .then(() => {
             setIsVoting(true);
         })
         .catch((error) => {
+            setVotes(currVotes)
             setVoteError("Failed to vote. Please try again.");
             setIsVoting(false);
         });

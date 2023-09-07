@@ -27,7 +27,7 @@ export default function ArticleItem () {
         );
     }
 
-    if (!article || Object.keys(article).length === 0) {
+    if (!article) {
         return (
             <div>
                 <h3>Article not found</h3>
