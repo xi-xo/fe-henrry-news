@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import CommentsList from "./CommentsList";
 import VotePatch from "./VotePatch";
 
-
 export default function ArticleItem () {
     const { articleId } = useParams(); 
     const [article, setArticle] = useState({})
@@ -49,7 +48,7 @@ export default function ArticleItem () {
         <div>
             <h2>Comments</h2>
             <ul>
-                <CommentsList/>
+                <CommentsList articleId={articleId}/>
             </ul>
         </div>
         </>

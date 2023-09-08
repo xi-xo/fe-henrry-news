@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getCommentsByArticleId } from "../ApiComponent/ArticleApiService";
 import { useParams } from "react-router-dom";
+import Comments from "./comments";
 
 export default function CommentsList () {
     const { articleId } = useParams();
@@ -22,7 +23,7 @@ export default function CommentsList () {
     if(isLoading) {
         return (
             <div>
-                <h3>Loanding...</h3>
+                <h3>Loading...</h3>
             </div>
         );
     }
@@ -37,9 +38,10 @@ export default function CommentsList () {
 
     return (
         <div className="comments-container">
+            <Comments/>
             {comments.map((comment) => {
                 return (
-                <li key={comment.comment_id}>
+                    <li key={comment.comment_id}>
                     <p>{comment.body}</p>
                 </li>
                 )
