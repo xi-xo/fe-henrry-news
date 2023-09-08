@@ -13,17 +13,16 @@ export const getArticlesById = (articleId) => {
     return ncNewsApi.get(`/articles/${articleId}`)
     .then(({data}) => {
         return data;
-        
     })
-
 }
 
-export const getComments = () => {
-    return ncNewsApi.get("/comments")
+export const getComments = (articleId) => {
+    return ncNewsApi.get(`/articles/${articleId}/comments`)
     .then((data) => {
         return data
     })
 }
+
 
 export const getCommentsByArticleId = (articleId) => {
     return ncNewsApi.get(`/articles/${articleId}/comments`)
@@ -32,11 +31,18 @@ export const getCommentsByArticleId = (articleId) => {
     })
 }
 
+export const postComment = (articleId, newComment) => {
+    console.log(newComment);
+    return ncNewsApi.post(`/articles/${articleId}/comments`, newComment)
+    .then((res) => {
+        return res.data.comment
+    })
+}
 export const patchVote = (articleId, voteType) => {
     const requestData = {
         vote_type: voteType
     };
-
+    
     return ncNewsApi.patch( `/articles/${articleId}`, { newVote: 1 })
     .then((data) => {
         return data
